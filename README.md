@@ -77,4 +77,4 @@ curl -v -X "DELETE" -H 'authorization: secretTokenForLambdaIAMAuth' $INVOKE_URL/
 Execute queries in cloud 9
 Check logs again
   
-  
+## Deploy API Gateway and create lambda version and alias  

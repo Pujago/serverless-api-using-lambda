@@ -1,6 +1,6 @@
 
 exports.handler = async(event) => {
-    if (event.headers.authorization == "secretToken") {
+    if (event.headers.authorization == "secretTokenForLambdaIAMAuth") {
       console.log("allowed");
       console.log(event.routeArn)
       return {

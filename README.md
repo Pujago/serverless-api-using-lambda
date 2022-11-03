@@ -5,8 +5,11 @@
 Table name: product-items
 Primary key: id
 
-# Create IAM role "serverless-crud-api-role"
+# Create IAM role "crud-server-api-full-privilege-role"
 Grant access to managed policy AWSLambdaBasicExecutionRole and create custom role to grant access to dynamodb 
+
+crud-server-api-full-privilege-role
+
 
 # Create Lambda functions
 
@@ -41,9 +44,15 @@ curl -s GET $INVOKE_URL/items | js-beautify
 #### Using lambda-auth-basic-function Authorizer 
     
 ##### PUT       
-curl -v -X "PUT" -H "Content-Type: application/json" -H 'authorization: secretTokenForLambdaBasicAuth' -d "{\"id\": \"323\", \"price\": 12345, \"name\": \"myitem\"}" $INVOKE_URL/items     
+curl -v -X "PUT" -H "Content-Type: application/json" -H 'authorization: secretTokenForLambdaBasicAuth' -d "{\"id\": \"323\", \"price\": 12345, \"name\": \"myitem\"}" $INVOKE_URL/items 
+
+curl -v -X "PUT" -H "Content-Type: application/json" -H 'authorization: secretTokenForLambdaBasicAuth' -d "{\"id\": \"111\", \"price\": 12345, \"name\": \"myitem\"}" $INVOKE_URL/items
+
+curl -v -X "PUT" -H "Content-Type: application/json" -H 'authorization: secretTokenForLambdaBasicAuth' -d "{\"id\": \"222\", \"price\": 12345, \"name\": \"myitem\"}" $INVOKE_URL/items  
+  
 ##### GET ALL  
 curl -s GET $INVOKE_URL/items -H 'authorization: secretTokenForLambdaBasicAuth' | js-beautify
+  
 ##### GET By ID
 curl -s GET $INVOKE_URL/items/123 -H 'authorization: secretTokenForLambdaBasicAuth' | js-beautify
     
@@ -51,9 +60,21 @@ curl -s GET $INVOKE_URL/items/123 -H 'authorization: secretTokenForLambdaBasicAu
 
 ##### GET ALL    
 curl -s GET $INVOKE_URL/items -H 'authorization: secretTokenForLambdaIAMAuth' | js-beautify
+  
 ##### GET By ID    
 curl -s GET $INVOKE_URL/items/323 -H 'authorization: secretTokenForLambdaIAMAuth' | js-beautify
+  
 ##### PUT       
 curl -v -X "PUT" -H "Content-Type: application/json" -H 'authorization: secretTokenForLambdaIAMAuth' -d "{\"id\": \"323\", \"price\": 12345, \"name\": \"myitem\"}" $INVOKE_URL/items
+  
 ##### DELETE
-curl -v -X "DELETE" -H 'authorization: secretTokenForLambdaIAMAuth' $INVOKE_URL/items/123   
+curl -v -X "DELETE" -H 'authorization: secretTokenForLambdaIAMAuth' $INVOKE_URL/items/123  
+  
+## Go to cloudwatch logs, verify logs
+ Go to the log group of lambda function
+  
+## Update the lambda execution role with "crud-server-api-least-privilege-role"
+Execute queries in cloud 9
+Check logs again
+  
+  

@@ -10,7 +10,7 @@ exports.handler = async(event) => {
         }
     };
     
-    if (event.headers.authorization === "secretToken") {
+    if (event.headers.authorization === "secretTokenForLambdaBasicAuth") {
         response = {
             "isAuthorized": true,
             "context": {
